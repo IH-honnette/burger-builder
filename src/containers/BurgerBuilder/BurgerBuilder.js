@@ -78,7 +78,11 @@ this.updatePurchaseState(updatedIngredients);
         return(
                     <Aux>
 
-                        <Modal />
+                        <Modal >
+                            <OrderSummary ingredients ={
+                                this.state.ingredients
+                            }/>
+                        </Modal>
                         <Burger
                         ingredients ={this.state.ingredients}
                         />

@@ -6,7 +6,8 @@ import classes from "./Modal.module.css";
 
 const modal =(props) => (
        <Aux>
-           <Backdrop show= {props.show}
+           <Backdrop 
+            show= {props.show}
             clicked ={props.modalClosed} />
            <div 
         className={classes.Modal}
@@ -14,7 +15,6 @@ const modal =(props) => (
             transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
             opacity: props.show ? '1': '0'
         }}
-    
         >
             {props.children}
         

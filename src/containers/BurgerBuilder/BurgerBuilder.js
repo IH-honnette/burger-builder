@@ -3,6 +3,7 @@ import Aux from '../../hoc/Auxiliary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'; 
 
 const INGREDIENT_PRICES ={
     salad: 0.5,
@@ -19,7 +20,8 @@ class BurgerBuilder extends Component {
                 meat: 0
             },
             totalPrice : 4.00,
-            purchaseable: false
+            purchaseable: false,
+            purchasing : false
     }
     updatePurchaseState(ingredients) {
       const sum =Object.keys(ingredients)
@@ -31,6 +33,15 @@ class BurgerBuilder extends Component {
                     }, 0); 
             this.setState({purchaseable: sum > 0});        
     }
+    purchaseHandler = () => {
+        this.setState({purchasing: true});
+    }
+    purchaseCancelHandler =() => {
+        this.setState({purchasing: false});
+    }
+   purchaseContinuedHandler =()=> {
+       alert("You can continue to purchase!");
+   }
  addIngredientHandler = (ingredientType) => {
     // what the ingredient count was
       const oldCount =this.state.ingredients[ingredientType];
@@ -78,7 +89,16 @@ this.updatePurchaseState(updatedIngredients);
         return(
                     <Aux>
 
-                        <Modal />
+                        <Modal 
+                        modalClosed ={this.purchaseCancelHandler}
+                         show={this.state.purchasing}>
+                         
+                        <OrderSummary 
+                        purchaseCancelled ={this.purchaseCancelHandler}
+                        price ={this.state.totalPrice}
+                        purchaseContinued ={this.purchaseContinuedHandler}
+                        ingredients ={ this.state.ingredients  }/>
+                        </Modal>
                         <Burger
                         ingredients ={this.state.ingredients}
                         />
@@ -86,6 +106,7 @@ this.updatePurchaseState(updatedIngredients);
                         ingredientAdded ={this.addIngredientHandler}
                         ingredientRemoved ={this.removeIngredientHandler}
                         disabled ={disabledInfo}
+                        ordered ={this.purchaseHandler}
                         price={this.state.totalPrice}
                         purchasable ={this.state.purchaseable}
                         /> 

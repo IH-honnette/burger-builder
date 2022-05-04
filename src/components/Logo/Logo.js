@@ -7,10 +7,6 @@ const logo =(props)=>(
        <div className={classes.Logo}>
            <img src={burgerLog} alt="burger-logo"/>
            
-
-
-
-           
        </div>
 );
 
